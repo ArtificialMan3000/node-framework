@@ -26,25 +26,23 @@ class Router {
     }
 
     endpoint[method] = handler;
-
-    emitter.on(`[${path}]:[${method}]`, (req, res) => {
-      console.log(`[${path}]:[${method}]`);
-      handler(req, res);
-    });
   }
 
   get(path, handler) {
     this.request('GET', path, handler);
   }
+
   post(path, handler) {
     this.request('POST', path, handler);
   }
+
   put(path, handler) {
     this.request('PUT', path, handler);
   }
+
   delete(path, handler) {
     this.request('DELETE', path, handler);
   }
 }
 
-module.exports = { Router, emitter };
+module.exports = Router;
