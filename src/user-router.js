@@ -14,19 +14,15 @@ const users = [
 ];
 
 router.get('/users', (req, res) => {
-  res.writeHead(200, {
-    'Content-Type': 'application/json',
-  });
-  res.end(JSON.stringify(users));
+  res.sendJson(users);
+  res.end();
 });
 
 router.post('/users', (req, res) => {
   const data = req.read();
   console.log(data);
-  res.writeHead(200, {
-    'Content-Type': 'application/json',
-  });
-  res.end(JSON.stringify(users));
+  res.sendJson(users);
+  res.end();
 });
 
 module.exports = router;

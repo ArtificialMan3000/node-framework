@@ -5,6 +5,13 @@ class Application {
   constructor() {
     this.emitter = new EventEmitter();
     this.server = this.#createServer();
+    this.middlewares = [];
+  }
+
+  use(middleware){
+    if (typeof middleware === 'function') {
+      this.middlewares.push(middleware)
+    }
   }
 
   listen(port, callback) {
@@ -22,6 +29,9 @@ class Application {
 
         this.emitter.on(routeMask, (req, res) => {
           console.log(`Routing on ${routeMask}...`);
+          this.middlewares.forEach((middleware) => {
+            middleware(req, res);
+          });
           handler(req, res);
         });
       });
