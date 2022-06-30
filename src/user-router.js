@@ -13,8 +13,19 @@ const users = [
   },
 ];
 
-router.get('/users', (req, res) => {
-  res.sendJson(users);
+router.get('/users', (req, res, searchParams) => {
+  const userIdParam = searchParams.get('id');
+  if (userIdParam) {
+    const user = users.find((user) => user.id === Number(userIdParam));
+
+    if (user) {
+      res.sendJson(user);
+    } else {
+      res.write('Have not user with that id');
+    }
+  } else {
+    res.sendJson(users);
+  }
   res.end();
 });
 

@@ -27,9 +27,9 @@ class Application {
 
         const routeMask = this.#getRouteMask(endpoint, method);
 
-        this.emitter.on(routeMask, (req, res) => {
+        this.emitter.on(routeMask, (req, res, searchParams) => {
           console.log(`Routing on ${routeMask}...`);
-          handler(req, res);
+          handler(req, res, searchParams);
         });
       });
     });
@@ -55,10 +55,15 @@ class Application {
           middleware(req, res);
         });
 
-        console.log(req.parsedUrl);
+        const url = req.parsedUrl;
 
-        const routeMask = this.#getRouteMask(req.url, req.method);
-        const isEmitted = this.emitter.emit(routeMask, req, res);
+        const routeMask = this.#getRouteMask(url.pathname, req.method);
+        const isEmitted = this.emitter.emit(
+          routeMask,
+          req,
+          res,
+          url.searchParams
+        );
         if (!isEmitted) {
           res.end('Impossible url!');
         }
