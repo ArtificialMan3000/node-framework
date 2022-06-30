@@ -29,9 +29,6 @@ class Application {
 
         this.emitter.on(routeMask, (req, res) => {
           console.log(`Routing on ${routeMask}...`);
-          this.middlewares.forEach((middleware) => {
-            middleware(req, res);
-          });
           handler(req, res);
         });
       });
@@ -52,6 +49,13 @@ class Application {
         if (body) {
           req.body = body;
         }
+
+        // Calls middlewares
+        this.middlewares.forEach((middleware) => {
+          middleware(req, res);
+        });
+
+        console.log(req.parsedUrl);
 
         const routeMask = this.#getRouteMask(req.url, req.method);
         const isEmitted = this.emitter.emit(routeMask, req, res);
