@@ -40,11 +40,25 @@ class Application {
 
   #createServer() {
     return http.createServer((req, res) => {
-      const routeMask = this.#getRouteMask(req.url, req.method);
-      const isEmitted = this.emitter.emit(routeMask, req, res);
-      if (!isEmitted) {
-        res.end('Impossible url!');
-      }
+      //#region Receiving request body
+      let body = '';
+      req.setEncoding('utf-8');
+      req.on('data', (chunk) => {
+        body += chunk;
+      });
+      //#endregion
+
+      req.on('end', () => {
+        if (body) {
+          req.body = body;
+        }
+
+        const routeMask = this.#getRouteMask(req.url, req.method);
+        const isEmitted = this.emitter.emit(routeMask, req, res);
+        if (!isEmitted) {
+          res.end('Impossible url!');
+        }
+      });
     });
   }
 

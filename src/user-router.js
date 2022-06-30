@@ -19,8 +19,8 @@ router.get('/users', (req, res) => {
 });
 
 router.post('/users', (req, res) => {
-  const data = req.read();
-  console.log(data);
+  const user = req.bodyParsed;
+  users.push(user);
   res.sendJson(users);
   res.end();
 });

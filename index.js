@@ -1,10 +1,12 @@
 const Application = require('./framework/Application');
 const userRouter = require('./src/user-router');
-const jsonParser = require('./framework/parseJson');
+const jsonSender = require('./framework/middlewares/jsonSender');
+const bodyJsonParser = require('./framework/middlewares/bodyJsonParser');
 
 const app = new Application();
 
-app.use(jsonParser);
+app.use(jsonSender);
+app.use(bodyJsonParser);
 app.addRouter(userRouter);
 
 app.listen(5000, () => {
