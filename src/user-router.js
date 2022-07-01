@@ -1,4 +1,5 @@
 const Router = require('../framework/Router');
+const { getUsers, createUser } = require('./user-controller');
 
 const router = new Router();
 
@@ -14,25 +15,12 @@ const users = [
 ];
 
 router.get('/users', (req, res) => {
-  const userIdParam = req.parsedUrl.searchParams.get('id');
-  if (userIdParam) {
-    const user = users.find((user) => user.id === Number(userIdParam));
-
-    if (user) {
-      res.sendJson(user);
-    } else {
-      res.write('Have not user with that id');
-    }
-  } else {
-    res.sendJson(users);
-  }
+  getUsers(req, res);
   res.end();
 });
 
 router.post('/users', (req, res) => {
-  const user = req.bodyParsed;
-  users.push(user);
-  res.sendJson(users);
+  createUser(req, res);
   res.end();
 });
 
