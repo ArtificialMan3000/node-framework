@@ -27,9 +27,9 @@ class Application {
 
         const routeMask = this.#getRouteMask(endpoint, method);
 
-        this.emitter.on(routeMask, (req, res, searchParams) => {
+        this.emitter.on(routeMask, (req, res) => {
           console.log(`Routing on ${routeMask}...`);
-          handler(req, res, searchParams);
+          handler(req, res);
         });
       });
     });

@@ -13,8 +13,8 @@ const users = [
   },
 ];
 
-router.get('/users', (req, res, searchParams) => {
-  const userIdParam = searchParams.get('id');
+router.get('/users', (req, res) => {
+  const userIdParam = req.parsedUrl.searchParams.get('id');
   if (userIdParam) {
     const user = users.find((user) => user.id === Number(userIdParam));
 
