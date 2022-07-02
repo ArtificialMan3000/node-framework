@@ -3,24 +3,13 @@ const { getUsers, createUser } = require('./user-controller');
 
 const router = new Router();
 
-const users = [
-  {
-    id: 1,
-    name: 'Petya',
-  },
-  {
-    id: 2,
-    name: 'Vasia',
-  },
-];
-
-router.get('/users', (req, res) => {
-  getUsers(req, res);
+router.get('/users', async (req, res) => {
+  await getUsers(req, res);
   res.end();
 });
 
-router.post('/users', (req, res) => {
-  createUser(req, res);
+router.post('/users', async (req, res) => {
+  await createUser(req, res);
   res.end();
 });
 
