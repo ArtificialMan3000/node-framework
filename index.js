@@ -17,5 +17,6 @@ app.use(urlParser(baseUrl));
 app.addRouter(userRouter);
 
 app.listen(process.env.PORT, () => {
+  // eslint-disable-next-line
   console.log(`Server running at ${baseUrl}`);
 });

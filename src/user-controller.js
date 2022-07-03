@@ -12,7 +12,7 @@ const users = [
 const getUsers = (req, res) => {
   const userIdParam = req.parsedUrl.searchParams.get('id');
   if (userIdParam) {
-    const user = users.find((user) => user.id === Number(userIdParam));
+    const user = users.find((currUser) => currUser.id === Number(userIdParam));
 
     if (user) {
       res.sendJson(user);

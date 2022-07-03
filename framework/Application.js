@@ -28,6 +28,7 @@ class Application {
         const routeMask = this.#getRouteMask(endpoint, method);
 
         this.emitter.on(routeMask, (req, res) => {
+          // eslint-disable-next-line
           console.log(`Routing on ${routeMask}...`);
           handler(req, res);
         });
