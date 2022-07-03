@@ -1,3 +1,3 @@
 const sum = 1 + 5;
-console.log(sum)
-console.log('Hello world!')
+console.log(sum);
+console.log('Hello world!');

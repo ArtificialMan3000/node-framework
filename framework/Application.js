@@ -8,9 +8,9 @@ class Application {
     this.middlewares = [];
   }
 
-  use(middleware){
+  use(middleware) {
     if (typeof middleware === 'function') {
-      this.middlewares.push(middleware)
+      this.middlewares.push(middleware);
     }
   }
 
@@ -37,13 +37,13 @@ class Application {
 
   #createServer() {
     return http.createServer((req, res) => {
-      //#region Receiving request body
+      // #region Receiving request body
       let body = '';
       req.setEncoding('utf-8');
       req.on('data', (chunk) => {
         body += chunk;
       });
-      //#endregion
+      // #endregion
 
       req.on('end', () => {
         if (body) {
@@ -57,7 +57,7 @@ class Application {
 
         const url = req.parsedUrl;
 
-        const routeMask = this.#getRouteMask(url.pathname, req.method);
+        const routeMask = Application.#getRouteMask(url.pathname, req.method);
         const isEmitted = this.emitter.emit(
           routeMask,
           req,
@@ -71,7 +71,7 @@ class Application {
     });
   }
 
-  #getRouteMask(path, method) {
+  static #getRouteMask(path, method) {
     return `[${path}]:[${method}]`;
   }
 }
